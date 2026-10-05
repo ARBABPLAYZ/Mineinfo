@@ -258,50 +258,46 @@
 
     <script>
         // Database Mock Data
-        const db = {
-            skins: [
-                { id: 1, title: "Nether Knight", category: "fantasy", author: "VoxelMaster", downloads: "14.2k", image: "https://placehold.co/300x400/1e293b/10b981?text=Nether+Knight" },
-                { id: 2, title: "Cyberpunk Ninja", category: "scifi", author: "NeoPixel", downloads: "9.8k", image: "https://placehold.co/300x400/1e293b/f59e0b?text=Cyber+Ninja" },
-                { id: 3, title: "Anime Demon Lord", category: "anime", author: "SakuraCraft", downloads: "22.5k", image: "https://placehold.co/300x400/1e293b/38bdf8?text=Demon+Lord" },
-                { id: 4, title: "Crystal Guardian", category: "fantasy", author: "AuraGfx", downloads: "7.1k", image: "https://placehold.co/300x400/1e293b/a855f7?text=Crystal+Guard" }
-            ],
-           "texture-packs": [
-               { id: 101, title: "MakeUp - Ultra Fast", resolution: "Shaders", author: "KDXavier", downloads: "13.1M", link: "https://modrinth.com/shader/makeup-ultra-fast", image: "https://cdn.modrinth.com/data/izsIPI7a/a0842baa86b8ffd58c08f4b3a001ef976ff764d.webp" },
-               { id: 102, title: "BSL Ultra Shaders", resolution: "Shaders", author: "CaptTatsu", downloads: "29.9M", link: "https://modrinth.com/shader/bsl-shaders", image: "https://cdn.modrinth.com/data/Q1vvjJYV/2a611a3cb434fb52fb81fa5dace13c5d8b67e55d.png" },
-               { id: 103, title: "Complementary Shaders", resolution: "Shaders", author: "EminGT", downloads: "68M", link: "https://modrinth.com/shader/complementary-reimagined", image: "https://cdn.modrinth.com/data/HVnmMxH1/acd43de96a8f9b28e6934e0e649cefe9f410bf51.png" }
-           ]
-            mods: [
-                { id: 201, title: "JEI (Just Enough Items)", version: "1.21 / Forge", author: "mezz", downloads: "2.1M", image: "https://placehold.co/400x250/1e293b/10b981?text=JEI+Mod" },
-                { id: 202, title: "Sodium Performance", version: "Fabric", author: "jellysquid", downloads: "3.4M", image: "https://placehold.co/400x250/1e293b/f59e0b?text=Sodium+Mod" },
-                { id: 203, title: "Create Mod", version: "Tech / Forge", author: "simibubi", downloads: "1.8M", image: "https://placehold.co/400x250/1e293b/a855f7?text=Create+Mod" }
-            ],
-            capes: [
-                { id: 301, title: "Dragon Wings Cape", rarity: "Legendary", author: "NexusTeam", downloads: "45k", image: "https://placehold.co/300x350/1e293b/10b981?text=Dragon+Cape" },
-                { id: 302, title: "Galaxy Nebula Cape", rarity: "Epic", author: "Stellar", downloads: "32k", image: "https://placehold.co/300x350/1e293b/f59e0b?text=Galaxy+Cape" },
-                { id: 303, title: "Golden Crown Cape", rarity: "Rare", author: "KingMC", downloads: "18k", image: "https://placehold.co/300x350/1e293b/38bdf8?text=Gold+Cape" },
-                { id: 304, title: "Phantom Glow Cape", rarity: "Epic", author: "Shadow", downloads: "24k", image: "https://placehold.co/300x350/1e293b/a855f7?text=Phantom+Cape" }
-            ],
-            potions: [
-                { name: "Potion of Swiftness", ingredients: "Nether Wart + Sugar", effect: "+20% Speed for 3 mins", type: "Buff" },
-                { name: "Potion of Healing II", ingredients: "Glistering Melon + Glowstone", effect: "Instant Health Restore", type: "Instant" },
-                { name: "Potion of Invisibility", ingredients: "Fermented Spider Eye + Night Vision", effect: "Complete Stealth", type: "Utility" },
-                { name: "Potion of Strength II", ingredients: "Blaze Powder + Glowstone", effect: "+6 Melee Attack Damage", type: "Buff" },
-                { name: "Potion of Night Vision", ingredients: "Golden Carrot + Nether Wart", effect: "Clear Underwater & Dark Sight", type: "Utility" },
-                { name: "Potion of Fire Resistance", ingredients: "Magma Cream + Nether Wart", effect: "Immunity to Fire & Lava", type: "Buff" }
-            ],
-            farms: [
-                { title: "Iron Golem Farm (Universal)", output: "1,800+ Iron Ingots/hr", difficulty: "Medium", desc: "Requires 3 villagers and 1 zombie in a contained chamber with corner collection platforms." },
-                { title: "Automatic Gold & XP Farm", output: "Level 30 in 2 mins", difficulty: "Easy (Nether Roof)", desc: "Portal ticking mechanism spawning piglins converted to zombie pigmen automatically." },
-                { title: "Villager Trading Hall & Breeder", output: "Infinite Mending Books", difficulty: "Easy", desc: "Zombification station to reduce villager trade prices down to 1 Emerald per enchanted book." },
-                { title: "Witch Farm (Perimeter)", output: "Redstone, Glowstone & Gunpowder", difficulty: "Hard", desc: "Requires clearing a 273x273 chunk perimeter down to bedrock for maximum rates." }
-            ],
-            redstone: [
-                { title: "Hopper Clock", use: "Timed item dispensing and pulse generation", diff: "Easy" },
-                { title: "T-Flip Flop", use: "Converts button pulse into permanent toggle switch", diff: "Easy" },
-                { title: "Observer Pulse Generator", use: "Detects block updates for automatic harvesting", diff: "Medium" }
-            ]
-        };
-
+      const db = {
+  "skins": [
+    { id: 1, title: "Nether Knight", category: "fantasy", author: "VoxelMaster", downloads: "14.2k", image: "https://cdn.modrinth.com/data/..." },
+    { id: 2, title: "Cyberpunk Ninja", category: "scifi", author: "NeoPixel", downloads: "9.8k", image: "https://cdn.modrinth.com/data/..." },
+    { id: 3, title: "Anime Demon Lord", category: "anime", author: "SakuraCraft", downloads: "22.5k", image: "https://cdn.modrinth.com/data/..." },
+    { id: 4, title: "Crystal Guardian", category: "fantasy", author: "AuraGfx", downloads: "7.1k", image: "https://cdn.modrinth.com/data/..." }
+  ],
+  "texture-packs": [
+    { id: 101, title: "MakeUp - Ultra Fast", resolution: "Shaders", author: "KDXavier", downloads: "13.1M", link: "https://modrinth.com/shader/makeup-ultra-fast", image: "https://cdn.modrinth.com/data/izsIPI7a/a0842baa86b8ffd58c08f4b3a001ef976ff764d.webp" },
+    { id: 102, title: "BSL Ultra Shaders", resolution: "Shaders", author: "CaptTatsu", downloads: "29.9M", link: "https://modrinth.com/shader/bsl-shaders", image: "https://cdn.modrinth.com/data/Q1vvjJYV/2a611a3cb434fb52fb81fa5dace13c5d8b67e55d.png" },
+    { id: 103, title: "Complementary Shaders", resolution: "Shaders", author: "EminGT", downloads: "68M", link: "https://modrinth.com/shader/complementary-reimagined", image: "https://cdn.modrinth.com/data/HVnmMxH1/acd43de96a8f9b28e6934e0e649cefe9f410bf51.png" }
+  ],
+  "mods": [
+    { id: 201, title: "JEI (Just Enough Items)", version: "1.21 / Forge", author: "mezz", downloads: "2.1M", image: "https://cdn.modrinth.com/data/..." },
+    { id: 202, title: "Sodium Performance", version: "Fabric", author: "jellysquid", downloads: "3.4M", image: "https://cdn.modrinth.com/data/..." },
+    { id: 203, title: "Create Mod", version: "Tech / Forge", author: "simububi", downloads: "1.8M", image: "https://cdn.modrinth.com/data/..." }
+  ],
+  "capes": [
+    { id: 301, title: "Dragon Wings Cape", rarity: "Legendary", author: "NexusTeam", downloads: "45k", image: "https://cdn.modrinth.com/data/..." }
+  ],
+  "potions": [
+    { name: "Potion of Swiftness", ingredients: "Nether Wart + Sugar", effect: "+20% Speed for 3 mins", type: "Buff" },
+    { name: "Potion of Healing II", ingredients: "Glistering Melon + Glowstone", effect: "Instant Health Restore" },
+    { name: "Potion of Invisibility", ingredients: "Fermented Spider Eye + Night Vision", effect: "Complete Stealth" },
+    { name: "Potion of Strength II", ingredients: "Blaze Powder + Glowstone", effect: "+6 Melee Attack Damage" },
+    { name: "Potion of Night Vision", ingredients: "Golden Carrot + Nether Wart", effect: "Clear Underwater & Dark" },
+    { name: "Potion of Fire Resistance", ingredients: "Magma Cream + Nether Wart", effect: "Immunity to Fire & Lava" }
+  ],
+  "farms": [
+    { title: "Iron Golem Farm (Universal)", output: "1,800+ Iron Ingots/hr", difficulty: "Medium" },
+    { title: "Automatic Gold & XP Farm", output: "Level 30 in 2 mins", difficulty: "Easy (Nether Roof)" },
+    { title: "Villager Trading Hall & Breeder", output: "Infinite Mending Books", difficulty: "Easy" },
+    { title: "Witch Farm (Perimeter)", output: "Redstone, Glowstone & Gunpowder", difficulty: "Hard" }
+  ],
+  "redstone": [
+    { title: "Hopper Clock", use: "Timed item dispensing and pulse generation", diff: "Easy" },
+    { title: "T-Flip Flop", use: "Converts button pulse into permanent toggle switch", diff: "Easy" },
+    { title: "Observer Pulse Generator", use: "Detects block updates for automatic harvesting", diff: "Medium" }
+  ]
+};
         // Tab Switching Logic
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
@@ -369,7 +365,7 @@
                             <h3 class="font-bold text-base">${item.title}</h3>
                             <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-1 rounded-md">${item.version}</span>
                         </div>
-                        <p class="text-xs text-slate-400">By ${item.author} • 📥 ${item.downloads}</p>
+                        <p class="text-xs text-slate400">By ${item.author} • 📥 ${item.downloads}</p>
                         <button onclick="openDetail('${item.title}', '${item.author}', '${item.downloads}')" class="w-full mt-2 bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-white text-xs font-bold py-2 rounded-xl transition-all">Download Mod</button>
                     </div>
                 </div>
