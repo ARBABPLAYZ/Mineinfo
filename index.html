@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-   <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mineinfo | Ultimate Minecraft Hub & Wiki</title>
@@ -120,14 +120,6 @@
                     <h2 class="text-2xl font-bold">Player Skins</h2>
                     <p class="text-slate-400 text-sm">Download hand-crafted HD skins for Java & Bedrock.</p>
                 </div>
-                <div class="flex gap-2">
-                    <select onchange="filterCategory('skins', this.value)" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none">
-                        <option value="all">All Styles</option>
-                        <option value="anime">Anime</option>
-                        <option value="fantasy">Fantasy</option>
-                        <option value="scifi">Sci-Fi</option>
-                    </select>
-                </div>
             </div>
             <div id="skins-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Populated via JS -->
@@ -142,6 +134,22 @@
                     <p class="text-slate-400 text-sm">Transform your world with stunning visuals and realistic water.</p>
                 </div>
             </div>
+
+            <!-- Modrinth Style Center Buttons -->
+            <div class="flex flex-col items-center justify-center my-6">
+                <div class="flex gap-4">
+                    <button onclick="filterPacks('shaders')" class="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-lg transition transform hover:scale-105">
+                        ✨ Shaders
+                    </button>
+                    <button onclick="filterPacks('textures')" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl border border-slate-700 shadow-lg transition transform hover:scale-105">
+                        🎨 Texture Packs
+                    </button>
+                    <button onclick="filterPacks('all')" class="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold rounded-xl border border-slate-700 shadow-lg transition">
+                        🔄 Show All
+                    </button>
+                </div>
+            </div>
+
             <div id="texture-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 <!-- Populated via JS -->
             </div>
@@ -173,39 +181,29 @@
             </div>
         </section>
 
-        <!-- WIKI TAB (Potions & Redstone Farms) -->
+        <!-- WIKI TAB -->
         <section id="tab-wiki" class="tab-content hidden space-y-8">
             <div>
                 <h2 class="text-2xl font-bold">Minecraft Expert Wiki & Guides</h2>
                 <p class="text-slate-400 text-sm">Master brewing recipes, redstone contraptions, and automatic resource farms.</p>
             </div>
 
-            <!-- Sub Navigation for Wiki -->
             <div class="flex space-x-2 border-b border-slate-800 pb-4">
                 <button onclick="switchWikiSub('potions')" id="wiki-btn-potions" class="wiki-sub-btn px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-500 text-slate-950 transition-all">Potion Brewing</button>
                 <button onclick="switchWikiSub('farms')" id="wiki-btn-farms" class="wiki-sub-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 transition-all">Automatic Farms</button>
                 <button onclick="switchWikiSub('redstone')" id="wiki-btn-redstone" class="wiki-sub-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 transition-all">Redstone Basics</button>
             </div>
 
-            <!-- Potions Section -->
             <div id="wiki-potions" class="wiki-section space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="potions-container">
-                    <!-- Populated via JS -->
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="potions-container"></div>
             </div>
 
-            <!-- Automatic Farms Section -->
             <div id="wiki-farms" class="wiki-section hidden space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="farms-container">
-                    <!-- Populated via JS -->
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="farms-container"></div>
             </div>
 
-            <!-- Redstone Basics Section -->
             <div id="wiki-redstone" class="wiki-section hidden space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="redstone-container">
-                    <!-- Populated via JS -->
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="redstone-container"></div>
             </div>
         </section>
 
@@ -221,9 +219,7 @@
     <div id="detail-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 relative space-y-4">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">&times;</button>
-            <div id="modal-content" class="space-y-4">
-                <!-- Dynamically filled -->
-            </div>
+            <div id="modal-content" class="space-y-4"></div>
         </div>
     </div>
 
@@ -232,7 +228,7 @@
         <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 relative space-y-4">
             <button onclick="closeUploadModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">&times;</button>
             <h3 class="text-xl font-bold">Submit Your Creation</h3>
-            <p class="text-slate-400 text-xs">Share your skin, texture pack or mod with the MC-Nexus community.</p>
+            <p class="text-slate-400 text-xs">Share your skin, texture pack or mod with the community.</p>
             <div class="space-y-3">
                 <div>
                     <label class="text-xs font-semibold text-slate-400">Title / Name</label>
@@ -257,48 +253,48 @@
     </div>
 
     <script>
-        // Database Mock Data
-      const db = {
-  "skins": [
-    { id: 1, title: "Nether Knight", category: "fantasy", author: "VoxelMaster", downloads: "14.2k", image: "https://cdn.modrinth.com/data/..." },
-    { id: 2, title: "Cyberpunk Ninja", category: "scifi", author: "NeoPixel", downloads: "9.8k", image: "https://cdn.modrinth.com/data/..." },
-    { id: 3, title: "Anime Demon Lord", category: "anime", author: "SakuraCraft", downloads: "22.5k", image: "https://cdn.modrinth.com/data/..." },
-    { id: 4, title: "Crystal Guardian", category: "fantasy", author: "AuraGfx", downloads: "7.1k", image: "https://cdn.modrinth.com/data/..." }
-  ],
-  "texture-packs": [
-      { id: 101, title: "MakeUp - Ultra Fast", type: "shaders", author: "KDXavier", downloads: "13.1M", link: "https://modrinth.com/shader/makeup-ultra-fast-shaders", image: "https://i.ytimg.com/vi/PZ2jmr201HU/maxresdefault.jpg" },
-      { id: 102, title: "BSL Ultra Shaders", type: "shaders", author: "CaptTatsu", downloads: "29.9M", link: "https://modrinth.com/shader/bsl-shaders", image: "https://cdn.modrinth.com/data/Q1vvjJYV/2a611a3cb434fb52f81fa5dace13c5d8b67e55d.png" },
-      { id: 103, title: "Complementary Shaders", type: "shaders", author: "EminGT", downloads: "68M", link: "https://modrinth.com/shader/complementary-reimagined", image: "https://cdn.modrinth.com/data/HVnmMxH1/acd43de96a8f9b28e6934e0e649cefe9f410bf51.png" }
-  ],
-  "mods": [
-    { id: 201, title: "JEI (Just Enough Items)", version: "1.21 / Forge", author: "mezz", downloads: "2.1M", image: "https://cdn.modrinth.com/data/..." },
-    { id: 202, title: "Sodium Performance", version: "Fabric", author: "jellysquid", downloads: "3.4M", image: "https://cdn.modrinth.com/data/..." },
-    { id: 203, title: "Create Mod", version: "Tech / Forge", author: "simububi", downloads: "1.8M", image: "https://cdn.modrinth.com/data/..." }
-  ],
-  "capes": [
-    { id: 301, title: "Dragon Wings Cape", rarity: "Legendary", author: "NexusTeam", downloads: "45k", image: "https://cdn.modrinth.com/data/..." }
-  ],
-  "potions": [
-    { name: "Potion of Swiftness", ingredients: "Nether Wart + Sugar", effect: "+20% Speed for 3 mins", type: "Buff" },
-    { name: "Potion of Healing II", ingredients: "Glistering Melon + Glowstone", effect: "Instant Health Restore" },
-    { name: "Potion of Invisibility", ingredients: "Fermented Spider Eye + Night Vision", effect: "Complete Stealth" },
-    { name: "Potion of Strength II", ingredients: "Blaze Powder + Glowstone", effect: "+6 Melee Attack Damage" },
-    { name: "Potion of Night Vision", ingredients: "Golden Carrot + Nether Wart", effect: "Clear Underwater & Dark" },
-    { name: "Potion of Fire Resistance", ingredients: "Magma Cream + Nether Wart", effect: "Immunity to Fire & Lava" }
-  ],
-  "farms": [
-    { title: "Iron Golem Farm (Universal)", output: "1,800+ Iron Ingots/hr", difficulty: "Medium" },
-    { title: "Automatic Gold & XP Farm", output: "Level 30 in 2 mins", difficulty: "Easy (Nether Roof)" },
-    { title: "Villager Trading Hall & Breeder", output: "Infinite Mending Books", difficulty: "Easy" },
-    { title: "Witch Farm (Perimeter)", output: "Redstone, Glowstone & Gunpowder", difficulty: "Hard" }
-  ],
-  "redstone": [
-    { title: "Hopper Clock", use: "Timed item dispensing and pulse generation", diff: "Easy" },
-    { title: "T-Flip Flop", use: "Converts button pulse into permanent toggle switch", diff: "Easy" },
-    { title: "Observer Pulse Generator", use: "Detects block updates for automatic harvesting", diff: "Medium" }
-  ]
-};
-        // Tab Switching Logic
+        const db = {
+            "skins": [
+                { id: 1, title: "Nether Knight", category: "fantasy", author: "VoxelMaster", downloads: "14.2k", image: "https://placehold.co/300x400/1e293b/ffffff?text=Skin" },
+                { id: 2, title: "Cyberpunk Ninja", category: "scifi", author: "NeoPixel", downloads: "9.8k", image: "https://placehold.co/300x400/1e293b/ffffff?text=Skin" },
+                { id: 3, title: "Anime Demon Lord", category: "anime", author: "SakuraCraft", downloads: "22.5k", image: "https://placehold.co/300x400/1e293b/ffffff?text=Skin" },
+                { id: 4, title: "Crystal Guardian", category: "fantasy", author: "AuraGfx", downloads: "7.1k", image: "https://placehold.co/300x400/1e293b/ffffff?text=Skin" }
+            ],
+            "texture-packs": [
+                { id: 101, title: "MakeUp - Ultra Fast", type: "shaders", author: "KDXavier", downloads: "13.1M", link: "https://modrinth.com/shader/makeup-ultra-fast-shaders", image: "https://i.ytimg.com/vi/PZ2jmr201HU/maxresdefault.jpg", resolution: "Shaders" },
+                { id: 102, title: "BSL Ultra Shaders", type: "shaders", author: "CaptTatsu", downloads: "29.9M", link: "https://modrinth.com/shader/bsl-shaders", image: "https://cdn.modrinth.com/data/Q1vvjJYV/2a611a3cb434fb52f81fa5dace13c5d8b67e55d.png", resolution: "Shaders" },
+                { id: 103, title: "Complementary Shaders", type: "shaders", author: "EminGT", downloads: "68M", link: "https://modrinth.com/shader/complementary-reimagined", image: "https://cdn.modrinth.com/data/HVnmMxH1/acd43de96a8f9b28e6934e0e649cefe9f410bf51.png", resolution: "Shaders" },
+                { id: 104, title: "Faithful 32x", type: "textures", author: "Voxel8", downloads: "45M", link: "https://modrinth.com", image: "https://placehold.co/400x250/1e293b/ffffff?text=Texture Pack", resolution: "32x" }
+            ],
+            "mods": [
+                { id: 201, title: "JEI (Just Enough Items)", version: "1.21 / Forge", author: "mezz", downloads: "2.1M", image: "https://placehold.co/400x250/1e293b/ffffff?text=Mod" },
+                { id: 202, title: "Sodium Performance", version: "Fabric", author: "jellysquid", downloads: "3.4M", image: "https://placehold.co/400x250/1e293b/ffffff?text=Mod" },
+                { id: 203, title: "Create Mod", version: "Tech / Forge", author: "simububi", downloads: "1.8M", image: "https://placehold.co/400x250/1e293b/ffffff?text=Mod" }
+            ],
+            "capes": [
+                { id: 301, title: "Dragon Wings Cape", rarity: "Legendary", author: "NexusTeam", downloads: "45k", image: "https://placehold.co/300x350/1e293b/ffffff?text=Cape" }
+            ],
+            "potions": [
+                { name: "Potion of Swiftness", ingredients: "Nether Wart + Sugar", effect: "+20% Speed for 3 mins", type: "Buff" },
+                { name: "Potion of Healing II", ingredients: "Glistering Melon + Glowstone", effect: "Instant Health Restore", type: "Healing" },
+                { name: "Potion of Invisibility", ingredients: "Fermented Spider Eye + Night Vision", effect: "Complete Stealth", type: "Stealth" },
+                { name: "Potion of Strength II", ingredients: "Blaze Powder + Glowstone", effect: "+6 Melee Attack Damage", type: "Combat" },
+                { name: "Potion of Night Vision", ingredients: "Golden Carrot + Nether Wart", effect: "Clear Underwater & Dark", type: "Utility" },
+                { name: "Potion of Fire Resistance", ingredients: "Magma Cream + Nether Wart", effect: "Immunity to Fire & Lava", type: "Defense" }
+            ],
+            "farms": [
+                { title: "Iron Golem Farm (Universal)", output: "1,800+ Iron Ingots/hr", difficulty: "Medium", desc: "Efficient iron production using villagers and a zombie scare mechanism." },
+                { title: "Automatic Gold & XP Farm", output: "Level 30 in 2 mins", difficulty: "Easy (Nether Roof)", desc: "Piglin portal based gold and XP farm built on the nether roof." },
+                { title: "Villager Trading Hall & Breeder", output: "Infinite Mending Books", difficulty: "Easy", desc: "Secure trading pods to lock villager trades and breed villagers effortlessly." },
+                { title: "Witch Farm (Perimeter)", output: "Redstone, Glowstone & Gunpowder", difficulty: "Hard", desc: "Full chunk perimeter farm designed for maximum witch drops." }
+            ],
+            "redstone": [
+                { title: "Hopper Clock", use: "Timed item dispensing and pulse generation", diff: "Easy" },
+                { title: "T-Flip Flop", use: "Converts button pulse into permanent toggle switch", diff: "Easy" },
+                { title: "Observer Pulse Generator", use: "Detects block updates for automatic harvesting", diff: "Medium" }
+            ]
+        };
+
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById('tab-' + tabId).classList.remove('hidden');
@@ -313,7 +309,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Wiki Sub-tab Switching
         function switchWikiSub(subId) {
             document.querySelectorAll('.wiki-section').forEach(el => el.classList.add('hidden'));
             document.getElementById('wiki-' + subId).classList.remove('hidden');
@@ -324,12 +319,11 @@
             document.getElementById('wiki-btn-' + subId).className = "wiki-sub-btn px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-500 text-slate-950 transition-all";
         }
 
-        // Render Grids on Load
         function renderAll() {
             // Skins
             document.getElementById('skins-grid').innerHTML = db.skins.map(item => `
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition-all">
-                    <img src="${item.image}" alt="${item.title}" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/300x400/1e293b/ffffff?text=Skin'">
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
                     <div class="p-4 space-y-2">
                         <div class="flex justify-between items-start">
                             <h3 class="font-bold text-base">${item.title}</h3>
@@ -340,42 +334,17 @@
                     </div>
                 </div>
             `).join('');
-// Texture Packs
-<!-- Modrinth Style Center Buttons -->
-<div class="flex flex-col items-center justify-center my-8">
-    <div class="flex gap-4">
-        <button onclick="filterPacks('shaders')" class="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-lg">
-            ✨ Shaders
-        </button>
-        <button onclick="filterPacks('textures')" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl border border-slate-700 shadow-lg">
-            🎨 Texture Packs
-        </button>
-    </div>
-</div>
-// Texture Packs
-            document.getElementById('texture-grid').innerHTML = db['texture-packs'].map(item => `
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition-all">
-                    <img src="${item.image}" alt="${item.title}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x250/1e293b/ffffff?text=Texture'">
-                    <div class="p-4 space-y-2">
-                        <div class="flex justify-between items-start">
-                            <h3 class="font-bold text-base">${item.title}</h3>
-                            <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-1 rounded-md">${item.resolution}</span>
-                        </div>
-                        <p class="text-xs text-slate-400">By ${item.author} • 📥 ${item.downloads}</p>
-                       <a href="${item.link}" target="_blank" class="block w-full mt-2 text-center bg-slate-800 hover:bg-emerald-500...">Download Pack</a>
-                </div>
-            `).join('');
 
             // Mods
             document.getElementById('mods-grid').innerHTML = db.mods.map(item => `
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition-all">
-                    <img src="${item.image}" alt="${item.title}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x250/1e293b/ffffff?text=Mod'">
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
                     <div class="p-4 space-y-2">
                         <div class="flex justify-between items-start">
                             <h3 class="font-bold text-base">${item.title}</h3>
-                            <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-1 rounded-md">${item.version}</span>
+                            <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-md">${item.version}</span>
                         </div>
-                        <p class="text-xs text-slate400">By ${item.author} • 📥 ${item.downloads}</p>
+                        <p class="text-xs text-slate-400">By ${item.author} • 📥 ${item.downloads}</p>
                         <button onclick="openDetail('${item.title}', '${item.author}', '${item.downloads}')" class="w-full mt-2 bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-white text-xs font-bold py-2 rounded-xl transition-all">Download Mod</button>
                     </div>
                 </div>
@@ -384,7 +353,7 @@
             // Capes
             document.getElementById('capes-grid').innerHTML = db.capes.map(item => `
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition-all text-center p-4">
-                    <img src="${item.image}" alt="${item.title}" class="w-full h-56 object-cover rounded-xl mb-3 group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/300x350/1e293b/ffffff?text=Cape'">
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-56 object-cover rounded-xl mb-3 group-hover:scale-105 transition-transform duration-300">
                     <h3 class="font-bold text-base mb-1">${item.title}</h3>
                     <p class="text-xs text-emerald-400 font-semibold mb-2">${item.rarity}</p>
                     <button onclick="openDetail('${item.title}', '${item.author}', '${item.downloads}')" class="w-full bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-white text-xs font-bold py-2 rounded-xl transition-all">Equip / Get</button>
@@ -426,28 +395,28 @@
                 </div>
             `).join('');
         }
-function filterPacks(type) {
-    let dataToRender = db['texture-packs'];
-    if (type !== 'all') {
-        dataToRender = db['texture-packs'].filter(item => item.type === type);
-    }
-    
-    document.getElementById('texture-grid').innerHTML = dataToRender.map(item => `
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition-all">
-            <img src="${item.image}" alt="${item.title}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x250/1e293b/ffffff?text=Texture'">
-            <div class="p-4 space-y-2">
-                <div class="flex justify-between items-start">
-                    <h3 class="font-bold text-base">${item.title}</h3>
-                    <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-1 rounded-md">${item.resolution || 'HD'}</span>
+
+        function filterPacks(type) {
+            let dataToRender = db['texture-packs'];
+            if (type !== 'all') {
+                dataToRender = db['texture-packs'].filter(item => item.type === type);
+            }
+            
+            document.getElementById('texture-grid').innerHTML = dataToRender.map(item => `
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition-all">
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-4 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-base">${item.title}</h3>
+                            <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-1 rounded-md">${item.resolution || 'HD'}</span>
+                        </div>
+                        <p class="text-xs text-slate-400">By ${item.author} • 📥 ${item.downloads}</p>
+                        <a href="${item.link}" target="_blank" class="block w-full mt-2 text-center bg-slate-800 hover:bg-emerald-500 text-white py-2 rounded-lg transition font-medium text-sm">Download Pack</a>
+                    </div>
                 </div>
-                <p class="text-xs text-slate-400">By ${item.author} • 📥 ${item.downloads}</p>
-                <a href="${item.link}" target="_blank" class="block w-full mt-2 text-center bg-slate-800 hover:bg-emerald-500 text-white py-2 rounded-lg transition font-medium text-sm">Download Pack</a>
-            </div>
-        </div>
-    `).join('');
-}
-      
-filterPacks('all');
+            `).join('');
+        }
+
         // Modal Controls
         function openDetail(title, author, downloads) {
             document.getElementById('modal-content').innerHTML = `
@@ -458,7 +427,7 @@ filterPacks('all');
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs text-slate-300">
                         Compatible with Minecraft Java & Bedrock Edition latest updates. Click below to initiate secure download.
                     </div>
-                    <button onclick="simulateDownload('${title}')" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl transition-all shadow-lg shadow-emerald-500/20">Download File (.mcpack / .zip)</button>
+                    <button onclick="closeModal()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl transition-all shadow-lg shadow-emerald-500/20">Download File (.mcpack / .zip)</button>
                 </div>
             `;
             document.getElementById('detail-modal').classList.remove('hidden');
@@ -476,46 +445,14 @@ filterPacks('all');
             document.getElementById('upload-modal').classList.add('hidden');
         }
 
-        function simulateDownload(name) {
-            alert("Successfully initiated download for: " + name + "! Check your downloads folder.");
-            closeModal();
-        }
-
         function submitAsset() {
-            const title = document.getElementById('up-title').value;
-            const cat = document.getElementById('up-cat').value;
-            const desc = document.getElementById('up-desc').value;
-            if(!title) {
-                alert("Please enter a valid title.");
-                return;
-            }
-            db[cat].unshift({
-                id: Date.now(),
-                title: title,
-                author: "You (Community)",
-                downloads: "1",
-                resolution: "HD",
-                version: "1.21",
-                rarity: "Custom",
-                image: "https://placehold.co/300x400/1e293b/10b981?text=" + encodeURIComponent(title)
-            });
-            renderAll();
+            alert('Asset submitted successfully!');
             closeUploadModal();
-            alert("Your asset has been successfully published to MC-Nexus!");
-            switchTab(cat);
         }
 
-        function handleSearch(query) {
-            if(!query) return;
-            const q = query.toLowerCase();
-            if(q.includes('skin')) switchTab('skins');
-            else if(q.includes('texture') || q.includes('shader')) switchTab('texture-packs');
-            else if(q.includes('mod')) switchTab('mods');
-            else if(q.includes('cape')) switchTab('capes');
-            else if(q.includes('potion') || q.includes('farm') || q.includes('redstone')) switchTab('wiki');
-        }
-
-        window.onload = renderAll;
+        // Initial Load
+        renderAll();
+        filterPacks('all');
     </script>
 </body>
 </html>
