@@ -512,7 +512,7 @@ function filterSkins(cat) {
   }
 
   grid.innerHTML = filteredSkins.map(item => `
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition cursor-pointer">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition cursor-pointer" onclick="openSkinModal('${item.title}', '${item.image}', '${item.author}', '${item.downloads}')">
       <img src="${item.image}" alt="${item.title}" class="w-full h-64 object-cover group-hover:scale-105 transition duration-300">
       <div class="p-4 space-y-2">
         <div class="flex justify-between items-start">
