@@ -260,7 +260,7 @@
         function formatCount(n) { return n >= 1000 ? (n/1000).toFixed(1) + 'k' : n; } function incrementCount(index) { db.skins[index].downloads = parseInt(db.skins[index].downloads || 0) + 1; document.getElementById(`fav-count-${index}`).innerText = formatCount(db.skins[index].downloads); if(document.getElementById('modal-fav-count')) { document.getElementById('modal-fav-count').innerText = formatCount(db.skins[index].downloads); } } function handleHeartClick(event, index) { event.stopPropagation(); incrementCount(index); } function downloadFile(fileUrl, fileName, index) { incrementCount(index); const a = document.createElement('a'); a.href = fileUrl; a.download = fileName; a.click(); }
         const db = {
             "skins": [
-               "skins": [ { id: 1, title: "Lapii", category: "Girl", author: "Community", downloads: 0, skinFile: "skin_lapii.png", image: "image_lapii_preview.png" } 
+                 { id: 1, title: "Lapii", category: "Girl", author: "Community", downloads: 0, skinFile: "skin_lapii.png", image: "image_lapii_preview.png" } 
             ],
                 "texture-packs": [
                 { id: 101, title: "MakeUp - Ultra Fast", type: "shaders", author: "KDXavier", downloads: "13.1M", link: "https://modrinth.com/shader/makeup-ultra-fast-shaders", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwoKgBozhZJBn1GTCW5w5UrS4EHbJ1gRXl-8apGUpoag&s=10", resolution: "Shaders" },
