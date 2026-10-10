@@ -511,19 +511,19 @@ function filterSkins(cat) {
     grid.innerHTML = `<div class="col-span-full text-center py-8 text-slate-500 text-sm">No skins found in this category yet.</div>`;
     return;
   }
-
-  grid.innerHTML = filteredSkins.map(item => `
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition cursor-pointer" onclick="openSkinModal('${item.title}', '${item.image}', '${item.author}', '${item.downloads}')">
-      <img src="${item.image}" alt="${item.title}" class="w-full h-64 object-cover group-hover:scale-105 transition duration-300">
-      <div class="p-4 space-y-2">
-        <div class="flex justify-between items-start">
-          <h3 class="font-bold text-base text-white">${item.title}</h3>
-          <span class="text-xs bg-slate-800 text-emerald-400 px-2 py-1 rounded-md flex items-center gap-1">⭐ ${item.downloads}</span>
+grid.innerHTML = filteredSkins.map((item, index) => `
+    <div onclick="openModal('${item.title}', '${item.skinFile}', '${item.image}', ${index})" class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition cursor-pointer">
+        <img src="${item.image}" alt="${item.title}" class="w-full h-64 object-cover group-hover:scale-105 transition duration-300">
+        <div class="p-4 space-y-2">
+            <div class="flex justify-between items-start">
+                <h3 class="font-bold text-base text-white">${item.title}</h3>
+                <span class="text-xs bg-slate-800 text-emerald-400 px-2 py-1 rounded-md flex items-center gap-1">⭐ ${item.downloads}</span>
+            </div>
+            <p class="text-xs text-slate-400">By ${item.author}</p>
         </div>
-        <p class="text-xs text-slate-400">By ${item.author}</p>
-      </div>
     </div>
-  `).join('');
+`).join('');
+  
 }
 
 function downloadSkin(url, filename) {
