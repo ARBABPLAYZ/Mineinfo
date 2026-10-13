@@ -122,9 +122,9 @@
                 </div>
             </div>
             <!-- Categories bar with dynamic counts -->
-<div class="flex overflow-x-auto space-x-4 py-3 mb-4 scrollbar-none" id="categoriesBar">
-  <!-- Populated via JS -->
-</div>
+            <div class="flex overflow-x-auto space-x-4 py-3 mb-4 scrollbar-none" id="categoriesBar">
+              <!-- Populated via JS -->
+            </div>
             <div id="skins-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Populated via JS -->
             </div>
@@ -219,11 +219,22 @@
         </div>
     </footer>
 
-    <!-- Download / Detail Modal -->
-    <div id="detail-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <!-- Skin Modal Popup -->
+    <div id="skinModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 relative space-y-4">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">&times;</button>
-            <div id="modal-content" class="space-y-4"></div>
+            <div class="text-center space-y-3">
+                <div class="w-32 h-32 bg-slate-950 rounded-2xl mx-auto overflow-hidden border border-slate-800 p-2 flex items-center justify-center">
+                    <img id="modalPreview" src="" alt="Skin Preview" class="max-h-full object-contain">
+                </div>
+                <h3 id="modalTitle" class="text-xl font-bold text-white">Skin Title</h3>
+                <p class="text-xs text-slate-400">Download skin file or preview image directly below.</p>
+                
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <button id="downloadSkinBtn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2.5 rounded-xl transition-all shadow-lg shadow-emerald-500/20 text-xs">Download Skin (.png)</button>
+                    <button id="downloadPreviewBtn" class="bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2.5 rounded-xl transition-all text-xs border border-slate-700">Download Preview</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -257,12 +268,14 @@
     </div>
 
     <script>
-        function formatCount(n) { return n >= 1000 ? (n/1000).toFixed(1) + 'k' : n; } function incrementCount(index) { db.skins[index].downloads = parseInt(db.skins[index].downloads || 0) + 1; document.getElementById(`fav-count-${index}`).innerText = formatCount(db.skins[index].downloads); if(document.getElementById('modal-fav-count')) { document.getElementById('modal-fav-count').innerText = formatCount(db.skins[index].downloads); } } function handleHeartClick(event, index) { event.stopPropagation(); incrementCount(index); } function downloadFile(fileUrl, fileName, index) { incrementCount(index); const a = document.createElement('a'); a.href = fileUrl; a.download = fileName; a.click(); }
+        function formatCount(n) { return n >= 1000 ? (n/1000).toFixed(1) + 'k' : n; } 
+        function incrementCount(index) { db.skins[index].downloads = parseInt(db.skins[index].downloads || 0) + 1; } 
+        
         const db = {
             "skins": [
                  { id: 1, title: "Lapii", category: "Girl", author: "Community", downloads: 0, skinFile: "skin_lapii.png", image: "image_lapii_preview.png" } 
             ],
-                "texture-packs": [
+            "texture-packs": [
                 { id: 101, title: "MakeUp - Ultra Fast", type: "shaders", author: "KDXavier", downloads: "13.1M", link: "https://modrinth.com/shader/makeup-ultra-fast-shaders", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwoKgBozhZJBn1GTCW5w5UrS4EHbJ1gRXl-8apGUpoag&s=10", resolution: "Shaders" },
                 { id: 102, title: "BSL Ultra Shaders", type: "shaders", author: "CaptTatsu", downloads: "29.9M", link: "https://modrinth.com/shader/bsl-shaders", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSs7DmvLFZnmxPTVg8_VI356DFd5D7uRffXV4V3_3MGg&s=10", resolution: "Shaders" },
                 { id: 103, title: "Complementary Shaders", type: "shaders", author: "EminGT", downloads: "68M", link: "https://modrinth.com/shader/complementary-reimagined", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5o_EzE1aPMtRKrwYBwRpbgmhaQFmfgIRNw2mOs10YhKu_EZilbrSeke51&s=10", resolution: "Shaders" },
@@ -323,21 +336,6 @@
         }
 
         function renderAll() {
-            // Skins
-            document.getElementById('skins-grid').innerHTML = db.skins.map(item => `
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition-all">
-                    <img src="${item.image}" alt="${item.title}" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
-                    <div class="p-4 space-y-2">
-                        <div class="flex justify-between items-start">
-                            <h3 class="font-bold text-base">${item.title}</h3>
-                            <span class="text-xs bg-slate-800 text-emerald-400 px-2 py-1 rounded-md">⭐ ${item.downloads}</span>
-                        </div>
-                        <p class="text-xs text-slate-400">By ${item.author}</p>
-                        <button onclick="openDetail('${item.title}', '${item.author}', '${item.downloads}')" class="w-full mt-2 bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-white text-xs font-bold py-2 rounded-xl transition-all">Download Skin</button>
-                    </div>
-                </div>
-            `).join('');
-
             // Mods
             document.getElementById('mods-grid').innerHTML = db.mods.map(item => `
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition-all">
@@ -348,7 +346,6 @@
                             <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-md">${item.version}</span>
                         </div>
                         <p class="text-xs text-slate-400">By ${item.author} • 📥 ${item.downloads}</p>
-                        <button onclick="openDetail('${item.title}', '${item.author}', '${item.downloads}')" class="w-full mt-2 bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-white text-xs font-bold py-2 rounded-xl transition-all">Download Mod</button>
                     </div>
                 </div>
             `).join('');
@@ -359,7 +356,6 @@
                     <img src="${item.image}" alt="${item.title}" class="w-full h-56 object-cover rounded-xl mb-3 group-hover:scale-105 transition-transform duration-300">
                     <h3 class="font-bold text-base mb-1">${item.title}</h3>
                     <p class="text-xs text-emerald-400 font-semibold mb-2">${item.rarity}</p>
-                    <button onclick="openDetail('${item.title}', '${item.author}', '${item.downloads}')" class="w-full bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-white text-xs font-bold py-2 rounded-xl transition-all">Equip / Get</button>
                 </div>
             `).join('');
 
@@ -398,7 +394,8 @@
                 </div>
             `).join('');
         }
-function filterPacks(type, btnElement) {
+
+        function filterPacks(type, btnElement) {
             let dataToRender = db['texture-packs'];
             if (type !== 'all') {
                 dataToRender = db['texture-packs'].filter(item => item.type === type);
@@ -418,35 +415,14 @@ function filterPacks(type, btnElement) {
                 </div>
             `).join('');
 
-            // Reset all filter buttons to default dark style
             const buttons = document.querySelectorAll('#tab-texture-packs button[onclick^="filterPacks"]');
             buttons.forEach(b => {
                 b.className = "px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl border border-slate-700 shadow-lg transition transform hover:scale-105";
             });
 
-            // Highlight the clicked button to green
             if(btnElement) {
                 btnElement.className = "px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-lg transition transform hover:scale-105";
             }
-        }
-        // Modal Controls
-        function openDetail(title, author, downloads) {
-            document.getElementById('modal-content').innerHTML = `
-                <div class="text-center space-y-3">
-                    <div class="w-16 h-16 bg-emerald-500/10 text-emerald-400 rounded-2xl mx-auto flex items-center justify-center text-3xl">📦</div>
-                    <h3 class="text-xl font-bold">${title}</h3>
-                    <p class="text-xs text-slate-400">Created by <span class="text-white font-medium">${author}</span> • Total Downloads: <span class="text-emerald-400">${downloads}</span></p>
-                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs text-slate-300">
-                        Compatible with Minecraft Java & Bedrock Edition latest updates. Click below to initiate secure download.
-                    </div>
-                    <button onclick="closeModal()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl transition-all shadow-lg shadow-emerald-500/20">Download File (.mcpack / .zip)</button>
-                </div>
-            `;
-            document.getElementById('detail-modal').classList.remove('hidden');
-        }
-
-        function closeModal() {
-            document.getElementById('detail-modal').classList.add('hidden');
         }
 
         function openUploadModal() {
@@ -461,108 +437,115 @@ function filterPacks(type, btnElement) {
             alert('Asset submitted successfully!');
             closeUploadModal();
         }
-const categoriesList = [
-  "Boy", "Girl", "Royal", "YouTuber", "Cool", "Suit", "Mask", "Cute", 
-  "Game", "Glasses", "Long hair", "Animal", "White", "Black", "Red", 
-  "Blue", "Yellow", "Purple", "Green", "Ugly", "Item"
-];
 
-let currentCategory = "All";
+        const categoriesList = [
+          "Boy", "Girl", "Royal", "YouTuber", "Cool", "Suit", "Mask", "Cute", 
+          "Game", "Glasses", "Long hair", "Animal", "White", "Black", "Red", 
+          "Blue", "Yellow", "Purple", "Green", "Ugly", "Item"
+        ];
 
-function renderCategoriesBar() {
-  const bar = document.getElementById('categoriesBar');
-  if (!bar) return;
-  
-  bar.innerHTML = '';
-  
-  const allCount = db.skins.length;
-  bar.innerHTML += `
-    <button onclick="filterSkins('All')" class="flex flex-col items-center justify-center p-2 min-w-[75px] rounded-xl ${currentCategory === 'All' ? 'bg-slate-800 text-white border border-slate-700' : 'hover:bg-slate-800/50 text-slate-400'} transition cursor-pointer">
-      <span class="text-xs font-medium">All</span>
-      <span class="text-[10px] text-slate-500 mt-0.5">${allCount}</span>
-    </button>
-  `;
+        let currentCategory = "All";
 
-  categoriesList.forEach(cat => {
-    const count = db.skins.filter(skin => skin.category === cat || (skin.categories && skin.categories.includes(cat))).length;
-    const isActive = currentCategory === cat;
-    
-    bar.innerHTML += `
-      <button onclick="filterSkins('${cat}')" class="flex flex-col items-center justify-center p-2 min-w-[75px] rounded-xl ${isActive ? 'bg-slate-800 text-white border border-slate-700' : 'hover:bg-slate-800/50 text-slate-400'} transition cursor-pointer">
-        <span class="text-xs font-medium">${cat}</span>
-        <span class="text-[10px] text-slate-500 mt-0.5">${count}</span>
-      </button>
-    `;
-  });
-}
+        function renderCategoriesBar() {
+          const bar = document.getElementById('categoriesBar');
+          if (!bar) return;
+          
+          bar.innerHTML = '';
+          
+          const allCount = db.skins.length;
+          bar.innerHTML += `
+            <button onclick="filterSkins('All')" class="flex flex-col items-center justify-center p-2 min-w-[75px] rounded-xl ${currentCategory === 'All' ? 'bg-slate-800 text-white border border-slate-700' : 'hover:bg-slate-800/50 text-slate-400'} transition cursor-pointer">
+              <span class="text-xs font-medium">All</span>
+              <span class="text-[10px] text-slate-500 mt-0.5">${allCount}</span>
+            </button>
+          `;
 
-function filterSkins(cat) {
-  currentCategory = cat;
-  renderCategoriesBar();
-  
-  const grid = document.getElementById('skins-grid');
-  if (!grid) return;
-  
-  const filteredSkins = cat === 'All' 
-    ? db.skins 
-    : db.skins.filter(skin => skin.category === cat || (skin.categories && skin.categories.includes(cat)));
-    
-  if (filteredSkins.length === 0) {
-    grid.innerHTML = `<div class="col-span-full text-center py-8 text-slate-500 text-sm">No skins found in this category yet.</div>`;
-    return;
-  }
-grid.innerHTML = filteredSkins.map((item, index) => `
-   <div onclick="openModal('${item.title}', '${item.skinFile}', '${item.image}', ${index})" class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition cursor-pointer">
-        <img src="${item.image}" alt="${item.title}" class="w-full h-64 object-cover group-hover:scale-105 transition duration-300">
-        <div class="p-4 space-y-2">
-            <div class="flex justify-between items-start">
-                <h3 class="font-bold text-base text-white">${item.title}</h3>
-                <span class="text-xs bg-slate-800 text-emerald-400 px-2 py-1 rounded-md flex items-center gap-1">⭐ ${item.downloads}</span>
-            </div>
-            <p class="text-xs text-slate-400">By ${item.author}</p>
-        </div>
-    </div>
-`).join('');
-  
-}
-function openModal(title, skinFile, previewImg, index) {
-    const modal = document.getElementById('skinModal');
-    if (!modal) return;
-    
-    // Modal Details Update
-    document.getElementById('modalTitle').innerText = title;
-    document.getElementById('modalPreview').src = previewImg;
-    
-    // Download Buttons Setup
-    const skinBtn = document.getElementById('downloadSkinBtn');
-    const previewBtn = document.getElementById('downloadPreviewBtn');
-    
-    if (skinBtn) skinBtn.onclick = () => downloadSkin(skinFile, `${title}_skin.png`);
-    if (previewBtn) previewBtn.onclick = () => downloadSkin(previewImg, `${title}_preview.png`);
-    
-    // Show Modal
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-}
+          categoriesList.forEach(cat => {
+            const count = db.skins.filter(skin => skin.category === cat || (skin.categories && skin.categories.includes(cat))).length;
+            const isActive = currentCategory === cat;
+            
+            bar.innerHTML += `
+              <button onclick="filterSkins('${cat}')" class="flex flex-col items-center justify-center p-2 min-w-[75px] rounded-xl ${isActive ? 'bg-slate-800 text-white border border-slate-700' : 'hover:bg-slate-800/50 text-slate-400'} transition cursor-pointer">
+                <span class="text-xs font-medium">${cat}</span>
+                <span class="text-[10px] text-slate-500 mt-0.5">${count}</span>
+              </button>
+            `;
+          });
+        }
 
-function closeModal() {
-    const modal = document.getElementById('skinModal');
-    if (modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-    }
-}
-function downloadSkin(url, filename) {
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-}
+        function filterSkins(cat) {
+          currentCategory = cat;
+          renderCategoriesBar();
+          
+          const grid = document.getElementById('skins-grid');
+          if (!grid) return;
+          
+          const filteredSkins = cat === 'All' 
+            ? db.skins 
+            : db.skins.filter(skin => skin.category === cat || (skin.categories && skin.categories.includes(cat)));
+            
+          if (filteredSkins.length === 0) {
+            grid.innerHTML = `<div class="col-span-full text-center py-8 text-slate-500 text-sm">No skins found in this category yet.</div>`;
+            return;
+          }
+          grid.innerHTML = filteredSkins.map((item, index) => `
+               <div onclick="openModal('${item.title}', '${item.skinFile}', '${item.image}', ${index})" class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group hover:border-emerald-500/40 transition cursor-pointer">
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-64 object-cover group-hover:scale-105 transition duration-300">
+                    <div class="p-4 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-base text-white">${item.title}</h3>
+                            <span class="text-xs bg-slate-800 text-emerald-400 px-2 py-1 rounded-md flex items-center gap-1">⭐ ${item.downloads}</span>
+                        </div>
+                        <p class="text-xs text-slate-400">By ${item.author}</p>
+                    </div>
+                </div>
+          `).join('');
+        }
+
+        function openModal(title, skinFile, previewImg, index) {
+            const modal = document.getElementById('skinModal');
+            if (!modal) return;
+            
+            document.getElementById('modalTitleinnerText = title');
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalPreview').src = previewImg;
+            
+            const skinBtn = document.getElementById('downloadSkinBtn');
+            const previewBtn = document.getElementById('downloadPreviewBtn');
+            
+            if (skinBtn) skinBtn.onclick = () => downloadSkin(skinFile, `${title}_skin.png`, index);
+            if (previewBtn) previewBtn.onclick = () => downloadSkin(previewImg, `${title}_preview.png`, index);
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('skinModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function downloadSkin(url, filename, index) {
+            incrementCount(index);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            // Refresh category counts/view
+            filterSkins(currentCategory);
+        }
+
         // Initial Load
-      renderCategoriesBar(); filterSkins('All');
+        renderCategoriesBar(); 
+        filterSkins('All');
         filterPacks('all');
+        renderAll();
     </script>
 </body>
 </html>
