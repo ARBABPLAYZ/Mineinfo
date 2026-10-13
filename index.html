@@ -525,7 +525,33 @@ grid.innerHTML = filteredSkins.map((item, index) => `
 `).join('');
   
 }
+function openModal(title, skinFile, previewImg, index) {
+    const modal = document.getElementById('skinModal');
+    if (!modal) return;
+    
+    // Modal Details Update
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalPreview').src = previewImg;
+    
+    // Download Buttons Setup
+    const skinBtn = document.getElementById('downloadSkinBtn');
+    const previewBtn = document.getElementById('downloadPreviewBtn');
+    
+    if (skinBtn) skinBtn.onclick = () => downloadSkin(skinFile, `${title}_skin.png`);
+    if (previewBtn) previewBtn.onclick = () => downloadSkin(previewImg, `${title}_preview.png`);
+    
+    // Show Modal
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
 
+function closeModal() {
+    const modal = document.getElementById('skinModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+}
 function downloadSkin(url, filename) {
   const a = document.createElement('a');
   a.href = url;
