@@ -387,34 +387,34 @@
         }
 
         function renderMods() {
-            const grid = document.getElementById('mods-grid');
-            if(!grid) return;
+    const grid = document.getElementById('mods-grid');
+    if(!grid) return;
 
-            grid.innerHTML = db.mods.map(item => `
-                <a href="${item.link}" target="_blank" class="bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all cursor-pointer group">
-                    <div class="flex items-start space-x-4">
-                        <img src="${item.icon}" onerror="this.src='https://placehold.co/96x96/1e293b/ffffff?text=Mod'" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-contain bg-slate-950 p-2 border border-slate-800 flex-shrink-0 group-hover:scale-105 transition-transform" alt="${item.title}">
-                        <div class="space-y-1.5">
-                            <div class="flex items-center gap-2 flex-wrap">
-                                <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition underline underline-offset-4 decoration-slate-700 group-hover:decoration-emerald-400">${item.title}</h3>
-                                <span class="text-xs text-slate-400 font-medium">by ${item.author}</span>
-                            </div>
-                            <p class="text-xs text-slate-300 max-w-2xl leading-relaxed">${item.desc}</p>
-                            <div class="flex flex-wrap gap-1.5 pt-1">
-                                ${item.tags.map(tag => `<span class="text-[11px] bg-slate-800 text-slate-400 border border-slate-700/60 px-2.5 py-0.5 rounded-full">${tag}</span>`).join('')}
-                            </div>
-                        </div>
+    grid.innerHTML = db.mods.map(item => `
+        <div onclick="window.open('${item.link}', '_blank')" class="bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all cursor-pointer group">
+            <div class="flex items-start space-x-4">
+                <img src="${item.icon}" onerror="this.src='https://placehold.co/96x96/1e293b/ffffff?text=Mod'" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-contain bg-slate-950 p-2 border border-slate-800 flex-shrink-0 group-hover:scale-105 transition-transform" alt="${item.title}">
+                <div class="space-y-1.5">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition underline underline-offset-4 decoration-slate-700 group-hover:decoration-emerald-400">${item.title}</h3>
+                        <span class="text-xs text-slate-400 font-medium">by ${item.author}</span>
                     </div>
-                    <div class="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto text-xs text-slate-400 gap-2 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-800 flex-shrink-0">
-                        <div class="flex items-center space-x-3 font-semibold text-slate-300">
-                            <span class="flex items-center gap-1">📥 ${item.downloads}</span>
-                            <span class="flex items-center gap-1">❤️ ${item.likes}</span>
-                        </div>
-                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-3 py-1 rounded-xl text-xs font-bold group-hover:bg-emerald-500 group-hover:text-slate-950 transition">Download Mod &rarr;</span>
+                    <p class="text-xs text-slate-300 max-w-2xl leading-relaxed">${item.desc}</p>
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                        ${item.tags.map(tag => `<span class="text-[11px] bg-slate-800 text-slate-400 border border-slate-700/60 px-2.5 py-0.5 rounded-full">${tag}</span>`).join('')}
                     </div>
-                </a>
-            `).join('');
-        }
+                </div>
+            </div>
+            <div class="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto text-xs text-slate-400 gap-2 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-800 flex-shrink-0">
+                <div class="flex items-center space-x-3 font-semibold text-slate-300">
+                    <span class="flex items-center gap-1">📥 ${item.downloads}</span>
+                    <span class="flex items-center gap-1">❤️ ${item.likes}</span>
+                </div>
+                <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-3 py-1 rounded-xl text-xs font-bold group-hover:bg-emerald-500 group-hover:text-slate-950 transition">Download Mod &rarr;</span>
+            </div>
+        </div>
+    `).join('');
+}
 
         function renderAll() {
             renderMods();
